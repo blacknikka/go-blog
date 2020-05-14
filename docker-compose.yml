@@ -1,0 +1,16 @@
+version: '3'
+services:
+  app:
+    build: ./src/golang
+    ports:
+      - '8080:8080'
+    volumes:
+      - './src/golang/src:/go/src/github.com/blacknikka/go-blog'
+    tty: true
+  db:
+    build: ./src/db
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}

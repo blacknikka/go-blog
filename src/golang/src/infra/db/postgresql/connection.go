@@ -8,9 +8,7 @@ import (
 var db *gorm.DB
 
 func Connect() *gorm.DB {
-	var err error
-
-	db, err := gorm.Open("postgres", "host=db port=5432 user=myuser dbname=db password=secret")
+	db, err := gorm.Open("postgres", "host=db port=5432 user=myuser dbname=db password=secret sslmode=disable")
 
 	if err != nil {
 		panic(err)

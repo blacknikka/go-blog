@@ -7,4 +7,4 @@ RUN curl -L https://github.com/golang-migrate/migrate/releases/download/v4.7.0/m
 
 ENV PATH $PATH:/go/bin
 
-CMD ["go", "run", "./main.go"]
+# CMD ["go", "run", "./main.go"]

@@ -1,9 +1,12 @@
 package main
 
 import (
-	"fmt"
+	"github.com/blacknikka/go-blog/infra"
+	"github.com/blacknikka/go-blog/infra/db/postgresql"
 )
 
 func main() {
-	fmt.Println("hello")
+	defer postgresql.CloseConn()
+
+	infra.Router.Run()
 }

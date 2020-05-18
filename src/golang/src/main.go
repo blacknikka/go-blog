@@ -8,5 +8,5 @@ import (
 func main() {
 	defer postgresql.CloseConn()
 
-	infra.Router.Run()
+	infra.Router.Run(":8080")
 }

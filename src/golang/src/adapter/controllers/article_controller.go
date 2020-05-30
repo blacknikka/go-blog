@@ -34,6 +34,7 @@ func (controller *ArticleController) Create(c *gin.Context) {
 		}
 	)
 	req := Request{}
+	c.BindJSON(&req)
 	articleData := article.Article{Title: req.Title, Body: req.Body}
 
 	id, err := controller.Interactor.Add(articleData)

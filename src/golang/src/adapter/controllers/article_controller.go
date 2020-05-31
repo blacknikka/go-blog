@@ -2,9 +2,7 @@ package controllers
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/jinzhu/gorm"
 
-	"github.com/blacknikka/go-blog/adapter/gateway"
 	"github.com/blacknikka/go-blog/domain/article"
 	"github.com/blacknikka/go-blog/usecase"
 )
@@ -13,13 +11,9 @@ type ArticleController struct {
 	Interactor usecase.ArticleInteractor
 }
 
-func NewArticleController(conn *gorm.DB) *ArticleController {
+func NewArticleController(interactor usecase.ArticleInteractor) *ArticleController {
 	return &ArticleController{
-		Interactor: usecase.ArticleInteractor{
-			ArticleRepository: &gateway.ArticleRepository{
-				Conn: conn,
-			},
-		},
+		Interactor: interactor,
 	}
 }
 
@@ -37,9 +31,8 @@ func (controller *ArticleController) Create(c *gin.Context) {
 	c.BindJSON(&req)
 	articleData := article.Article{Title: req.Title, Body: req.Body}
 
-	id, err := controller.Interactor.Add(articleData)
+	_, err := controller.Interactor.Add(articleData, c)
 	if err != nil {
 		return
 	}
-	_ = Response{ArticleID: id.ID}
 }
